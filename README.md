@@ -52,6 +52,10 @@ The GDExtension are using the SCons for C++ project building , which is based on
 
   Ideal to use with homebrew `brew install scons`.
 
+#### Set up GDExtension
+
+If shell bash is enabled in your env and you are using apt manager, then there is created a script to automate the process at `shells/setup.sh`. It is still experimental though.
+
 In order to set this up, some steps are required:
 
 * Get the extension_api.json
