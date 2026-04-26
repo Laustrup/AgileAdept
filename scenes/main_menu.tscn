@@ -1,0 +1,193 @@
+[gd_scene format=3 uid="uid://1ogy0bvsl6kl"]
+
+[ext_resource type="Script" uid="uid://3mcibooktemi" path="res://scripts/main_menu.gd" id="1_3ovsr"]
+[ext_resource type="AudioStream" uid="uid://yorv5rf0mbxv" path="res://audio/sounds/Wild one (Agile Adept)_session.mp3" id="2_5seab"]
+[ext_resource type="FontFile" uid="uid://c6yoyhva7aj2b" path="res://fonts/Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf" id="3_4xg86"]
+[ext_resource type="Texture2D" uid="uid://c2ddmonbxxn37" path="res://icon.svg" id="4_thkx5"]
+[ext_resource type="PackedScene" uid="uid://dralqfwx6u7n8" path="res://components/button.tscn" id="5_x2yjq"]
+[ext_resource type="PackedScene" uid="uid://y0i173ef0ymc" path="res://components/horizontal_slider.tscn" id="6_rtw2f"]
+[ext_resource type="Script" uid="uid://dmswcjaqj4dwd" path="res://scripts/settings/theme_volume.gd" id="7_oa1go"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wu84c"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="MainMenu" type="Control" unique_id=445002498]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3ovsr")
+
+[node name="Theme" type="AudioStreamPlayer2D" parent="." unique_id=153821012]
+stream = ExtResource("2_5seab")
+volume_db = 2.0
+autoplay = true
+bus = &"Theme"
+
+[node name="Label" type="Label" parent="." unique_id=1852816111]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 31.0
+offset_right = 362.0
+offset_bottom = 91.0
+theme_override_fonts/font = ExtResource("3_4xg86")
+theme_override_font_sizes/font_size = 50
+text = "Agile Adept"
+
+[node name="GoDotIcon" type="Sprite2D" parent="." unique_id=1725834016]
+position = Vector2(1041, 96)
+texture = ExtResource("4_thkx5")
+
+[node name="LandingPage" type="Panel" parent="." unique_id=2047536883]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -75.0
+offset_right = 100.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wu84c")
+
+[node name="Container" type="VBoxContainer" parent="LandingPage" unique_id=251652956]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -75.0
+offset_right = 100.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="StartButton" parent="LandingPage/Container" unique_id=562070206 instance=ExtResource("5_x2yjq")]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Start"
+
+[node name="SettingsButton" parent="LandingPage/Container" unique_id=1829992750 instance=ExtResource("5_x2yjq")]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Options"
+
+[node name="ExitButton" parent="LandingPage/Container" unique_id=215465323 instance=ExtResource("5_x2yjq")]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Exit"
+
+[node name="SettingsPage" type="Control" parent="." unique_id=480212918]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Navigation" type="Panel" parent="SettingsPage" unique_id=693831679]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -75.0
+offset_right = 200.0
+offset_bottom = 75.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wu84c")
+
+[node name="Container" type="VBoxContainer" parent="SettingsPage/Navigation" unique_id=997562712]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 33.0
+offset_top = -85.0
+offset_right = 33.0
+offset_bottom = -85.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="SettingsAudioButton" parent="SettingsPage/Navigation/Container" unique_id=1562721580 instance=ExtResource("5_x2yjq")]
+layout_mode = 2
+text = "Audio
+"
+
+[node name="SettingsReturnButton" parent="SettingsPage/Navigation" unique_id=1847776591 instance=ExtResource("5_x2yjq")]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 342.0
+offset_right = 233.0
+offset_bottom = 365.0
+text = "Return"
+
+[node name="Configuration" type="Panel" parent="SettingsPage" unique_id=1966476750]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wu84c")
+
+[node name="Container" type="VBoxContainer" parent="SettingsPage/Configuration" unique_id=1530720415]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="ThemeVolumeSection" type="HBoxContainer" parent="SettingsPage/Configuration/Container" unique_id=1436650064]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ThemeVolumeLabel" type="Label" parent="SettingsPage/Configuration/Container/ThemeVolumeSection" unique_id=940008975]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Theme
+"
+
+[node name="Control" type="Control" parent="SettingsPage/Configuration/Container/ThemeVolumeSection" unique_id=641585566]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+
+[node name="ThemeVolumeSlider" parent="SettingsPage/Configuration/Container/ThemeVolumeSection/Control" unique_id=1560754593 instance=ExtResource("6_rtw2f")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -8.0
+offset_right = 50.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_oa1go")
+
+[connection signal="finished" from="Theme" to="." method="_on_theme_finished"]
+[connection signal="pressed" from="LandingPage/Container/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="LandingPage/Container/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="LandingPage/Container/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="SettingsPage/Navigation/SettingsReturnButton" to="." method="_on_settings_return_button_pressed"]
