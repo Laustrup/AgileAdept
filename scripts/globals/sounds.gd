@@ -1,0 +1,8 @@
+extends Node
+
+const SOUND_OFFSET: float = 0.75
+const SOUND_VOLUME_LIMIT: int = 15
+const SOUND_LINEAR_VOLUME_LIMIT: int = 5
+const SOUND_VOLUME_MINIMUM: int = -80
+const SOUND_VOLUME_MEDIAN: float = -32.5
+const SOUND_VOLUME_STEP: float = abs(SOUND_VOLUME_MEDIAN) + SOUND_VOLUME_LIMIT

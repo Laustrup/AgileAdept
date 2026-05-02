@@ -1,7 +1,5 @@
 # Description
 
--- --
-
 This is a game running on the Godot engine with version `4.6.1`.
 
 The whole purpose of the game is basically to be a collection of minigames, that player can compete against each other to earn most points in the shortest amount of time.
@@ -10,8 +8,6 @@ Originally I started this project to improve my game dev skills, which would nee
 
 # How to set up
 
--- --
-
 ## Engine 
 
 Diverse for which OS you are using. The [Official website](https://godotengine.org/download/) will guide you to the download for your OS, but for Ubuntu I actually recommend, even though I usually prefer `apt install`, then in this scenario snap is the easiest approach, which is either in the app center or with command of `sudo snap install godot` or `sudo snap install godot-4`, just be aware, that if godot-4 is installed, then use godot-4 as command.
@@ -19,6 +15,8 @@ Diverse for which OS you are using. The [Official website](https://godotengine.o
 ## Plugins
 
 Many of these instructions are based on Linux Ubuntu OS, but will also mention possible approaches for other systems.
+
+These plugins are not necessary at the moment, since this project is running purely on the standard basic Godot engine, but are created with GDExtension to have it connected to the plugin, so that the engine's feature can be optimized easily through C++.
 
 ### GDExtension
 

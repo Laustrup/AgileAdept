@@ -2,14 +2,55 @@
 
 [ext_resource type="Script" uid="uid://3mcibooktemi" path="res://scripts/main_menu.gd" id="1_3ovsr"]
 [ext_resource type="AudioStream" uid="uid://yorv5rf0mbxv" path="res://audio/sounds/Wild one (Agile Adept)_session.mp3" id="2_5seab"]
-[ext_resource type="FontFile" uid="uid://c6yoyhva7aj2b" path="res://fonts/Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf" id="3_4xg86"]
+[ext_resource type="FontFile" uid="uid://c6yoyhva7aj2b" path="res://components/fonts/Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf" id="3_4xg86"]
 [ext_resource type="Texture2D" uid="uid://c2ddmonbxxn37" path="res://icon.svg" id="4_thkx5"]
 [ext_resource type="PackedScene" uid="uid://dralqfwx6u7n8" path="res://components/button.tscn" id="5_x2yjq"]
 [ext_resource type="PackedScene" uid="uid://y0i173ef0ymc" path="res://components/horizontal_slider.tscn" id="6_rtw2f"]
-[ext_resource type="Script" uid="uid://dmswcjaqj4dwd" path="res://scripts/settings/theme_volume.gd" id="7_oa1go"]
+[ext_resource type="Texture2D" uid="uid://bqrxhmwr4c83i" path="res://components/icons/headphones-solid-full.svg" id="7_jk1qb"]
+[ext_resource type="Script" uid="uid://mbwu3qymxnkf" path="res://scripts/settings/master_sound_control.gd" id="7_lgwnu"]
+[ext_resource type="Texture2D" uid="uid://btssnnpbcdwrg" path="res://components/icons/music-solid-full.svg" id="7_oa1go"]
+[ext_resource type="Script" uid="uid://dmswcjaqj4dwd" path="res://scripts/settings/music_control.gd" id="8_5dd4i"]
+[ext_resource type="Texture2D" uid="uid://bhbcl175hg01u" path="res://components/icons/volume-solid-full.svg" id="8_tbmy8"]
+[ext_resource type="Script" uid="uid://p47u044jjxv7" path="res://scripts/settings/sound_control.gd" id="11_flqon"]
+[ext_resource type="Texture2D" uid="uid://dx70ohcdyb55b" path="res://components/icons/volume-xmark-solid-full.svg" id="12_rcqid"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wu84c"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="GDScript" id="GDScript_rcqid"]
+script/source = "extends Control
+
+@onready var audioSettings: Panel = $AudioSettings as Panel
+@onready var displaySettings: Panel = $DisplaySettings as Panel
+
+func _ready() -> void:
+	print(audioSettings)
+
+func _on_settings_audio_radio_button_pressed() -> void:
+	switch_section(SettingsSection.AUDIO)
+
+func _on_settings_display_radio_button_pressed() -> void:
+	switch_section(SettingsSection.DISPLAY)
+
+func switch_section(section: SettingsSection) -> void:
+	audioSettings.visible = section == SettingsSection.AUDIO
+	displaySettings.visible = section == SettingsSection.DISPLAY
+
+enum SettingsSection {
+	AUDIO,
+	DISPLAY
+}
+"
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_rcqid"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7b55j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5pajh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1ajci"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rcqid"]
 
 [node name="MainMenu" type="Control" unique_id=445002498]
 layout_mode = 3
@@ -22,11 +63,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3ovsr")
 
-[node name="Theme" type="AudioStreamPlayer2D" parent="." unique_id=153821012]
+[node name="Music" type="AudioStreamPlayer2D" parent="." unique_id=153821012]
 stream = ExtResource("2_5seab")
 volume_db = 2.0
 autoplay = true
-bus = &"Theme"
+bus = &"Music"
 
 [node name="Label" type="Label" parent="." unique_id=1852816111]
 layout_mode = 0
@@ -37,10 +78,6 @@ offset_bottom = 91.0
 theme_override_fonts/font = ExtResource("3_4xg86")
 theme_override_font_sizes/font_size = 50
 text = "Agile Adept"
-
-[node name="GoDotIcon" type="Sprite2D" parent="." unique_id=1725834016]
-position = Vector2(1041, 96)
-texture = ExtResource("4_thkx5")
 
 [node name="LandingPage" type="Panel" parent="." unique_id=2047536883]
 layout_mode = 1
@@ -71,8 +108,9 @@ offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
+script = SubResource("GDScript_rcqid")
 
-[node name="StartButton" parent="LandingPage/Container" unique_id=562070206 instance=ExtResource("5_x2yjq")]
+[node name="SettingsPage_Configuration_Container_SoundSlider_Button#SettingsPage_Configuration_Container_MusicSlider_Button#SettingsPage_Configuration_Container_MasterVolumeSlider_Button#StartButton" parent="LandingPage/Container" unique_id=562070206 instance=ExtResource("5_x2yjq")]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Start"
@@ -106,31 +144,30 @@ offset_bottom = 75.0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wu84c")
 
-[node name="Container" type="VBoxContainer" parent="SettingsPage/Navigation" unique_id=997562712]
+[node name="RadioButtons" type="VBoxContainer" parent="SettingsPage/Navigation" unique_id=1984428016]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 33.0
-offset_top = -85.0
-offset_right = 33.0
-offset_bottom = -85.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.5
+offset_top = -33.0
+offset_right = 42.5
+offset_bottom = 33.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 10
 
-[node name="SettingsAudioButton" parent="SettingsPage/Navigation/Container" unique_id=1562721580 instance=ExtResource("5_x2yjq")]
+[node name="SettingsAudioRadioButton" type="CheckBox" parent="SettingsPage/Navigation/RadioButtons" unique_id=968450366]
 layout_mode = 2
-text = "Audio
-"
+button_pressed = true
+button_group = SubResource("ButtonGroup_rcqid")
+text = "Audio"
 
-[node name="SettingsReturnButton" parent="SettingsPage/Navigation" unique_id=1847776591 instance=ExtResource("5_x2yjq")]
-layout_mode = 0
-offset_left = 33.0
-offset_top = 342.0
-offset_right = 233.0
-offset_bottom = 365.0
-text = "Return"
+[node name="SettingsDisplayRadioButton" type="CheckBox" parent="SettingsPage/Navigation/RadioButtons" unique_id=1501708807]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_rcqid")
+text = "Display"
 
 [node name="Configuration" type="Panel" parent="SettingsPage" unique_id=1966476750]
 layout_mode = 1
@@ -139,55 +176,139 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -150.0
-offset_right = 200.0
-offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wu84c")
 
-[node name="Container" type="VBoxContainer" parent="SettingsPage/Configuration" unique_id=1530720415]
+[node name="AudioSettings" type="Panel" parent="SettingsPage/Configuration" unique_id=97709540]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 10
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7b55j")
 
-[node name="ThemeVolumeSection" type="HBoxContainer" parent="SettingsPage/Configuration/Container" unique_id=1436650064]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="ThemeVolumeLabel" type="Label" parent="SettingsPage/Configuration/Container/ThemeVolumeSection" unique_id=940008975]
-layout_mode = 2
-size_flags_horizontal = 6
-text = "Theme
-"
-
-[node name="Control" type="Control" parent="SettingsPage/Configuration/Container/ThemeVolumeSection" unique_id=641585566]
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 4
-
-[node name="ThemeVolumeSlider" parent="SettingsPage/Configuration/Container/ThemeVolumeSection/Control" unique_id=1560754593 instance=ExtResource("6_rtw2f")]
+[node name="Container" type="VBoxContainer" parent="SettingsPage/Configuration/AudioSettings" unique_id=1530720415]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -8.0
-offset_right = 50.0
-offset_bottom = 8.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("7_oa1go")
+theme_override_constants/separation = 100
 
-[connection signal="finished" from="Theme" to="." method="_on_theme_finished"]
-[connection signal="pressed" from="LandingPage/Container/StartButton" to="." method="_on_start_button_pressed"]
+[node name="MasterVolumeSlider" parent="SettingsPage/Configuration/AudioSettings/Container" unique_id=446132810 instance=ExtResource("6_rtw2f")]
+layout_mode = 2
+
+[node name="Label" parent="SettingsPage/Configuration/AudioSettings/Container/MasterVolumeSlider/ControlSection" parent_id_path=PackedInt32Array(446132810, 1298092147) index="0" unique_id=1700402066]
+text = "Master"
+
+[node name="HSlider" parent="SettingsPage/Configuration/AudioSettings/Container/MasterVolumeSlider/ControlSection" parent_id_path=PackedInt32Array(446132810, 1298092147) index="1" unique_id=1873668966]
+script = ExtResource("7_lgwnu")
+
+[node name="Button" parent="SettingsPage/Configuration/AudioSettings/Container/MasterVolumeSlider/ControlSection" parent_id_path=PackedInt32Array(446132810, 1298092147) index="2" unique_id=562070206]
+icon = ExtResource("12_rcqid")
+
+[node name="Icon" parent="SettingsPage/Configuration/AudioSettings/Container/MasterVolumeSlider" index="1" unique_id=437089885]
+texture = ExtResource("7_jk1qb")
+
+[node name="MusicSlider" parent="SettingsPage/Configuration/AudioSettings/Container" unique_id=1560754593 instance=ExtResource("6_rtw2f")]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" parent="SettingsPage/Configuration/AudioSettings/Container/MusicSlider/ControlSection" parent_id_path=PackedInt32Array(1560754593, 1298092147) index="0" unique_id=1700402066]
+text = "Music"
+
+[node name="HSlider" parent="SettingsPage/Configuration/AudioSettings/Container/MusicSlider/ControlSection" parent_id_path=PackedInt32Array(1560754593, 1298092147) index="1" unique_id=1873668966]
+script = ExtResource("8_5dd4i")
+
+[node name="Button" parent="SettingsPage/Configuration/AudioSettings/Container/MusicSlider/ControlSection" parent_id_path=PackedInt32Array(1560754593, 1298092147) index="2" unique_id=562070206]
+icon = ExtResource("12_rcqid")
+
+[node name="Icon" parent="SettingsPage/Configuration/AudioSettings/Container/MusicSlider" index="1" unique_id=437089885]
+texture = ExtResource("7_oa1go")
+
+[node name="SoundSlider" parent="SettingsPage/Configuration/AudioSettings/Container" unique_id=894853954 instance=ExtResource("6_rtw2f")]
+layout_mode = 2
+
+[node name="Label" parent="SettingsPage/Configuration/AudioSettings/Container/SoundSlider/ControlSection" parent_id_path=PackedInt32Array(894853954, 1298092147) index="0" unique_id=1700402066]
+text = "Sound"
+
+[node name="HSlider" parent="SettingsPage/Configuration/AudioSettings/Container/SoundSlider/ControlSection" parent_id_path=PackedInt32Array(894853954, 1298092147) index="1" unique_id=1873668966]
+script = ExtResource("11_flqon")
+
+[node name="Button" parent="SettingsPage/Configuration/AudioSettings/Container/SoundSlider/ControlSection" parent_id_path=PackedInt32Array(894853954, 1298092147) index="2" unique_id=562070206]
+icon = ExtResource("12_rcqid")
+
+[node name="Icon" parent="SettingsPage/Configuration/AudioSettings/Container/SoundSlider" index="1" unique_id=437089885]
+texture = ExtResource("8_tbmy8")
+
+[node name="DisplaySettings" type="Panel" parent="SettingsPage/Configuration" unique_id=1070074412]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5pajh")
+
+[node name="ReturnSection" type="Panel" parent="SettingsPage" unique_id=1130162186]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -48.0
+offset_right = 60.0
+offset_bottom = -8.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1ajci")
+
+[node name="Control" type="Control" parent="SettingsPage/ReturnSection" unique_id=1903685481]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="ReturnButton" parent="SettingsPage/ReturnSection/Control" unique_id=646074098 instance=ExtResource("5_x2yjq")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+offset_right = 200.0
+offset_bottom = 0.0
+grow_vertical = 0
+text = "Return"
+
+[node name="RightTopCorner" type="Panel" parent="." unique_id=2119828602]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rcqid")
+
+[node name="GoDotIcon" type="Sprite2D" parent="RightTopCorner" unique_id=1725834016]
+position = Vector2(-50, 100)
+texture = ExtResource("4_thkx5")
+
+[connection signal="finished" from="Music" to="." method="_on_theme_finished"]
+[connection signal="pressed" from="LandingPage/Container/SettingsPage_Configuration_Container_SoundSlider_Button#SettingsPage_Configuration_Container_MusicSlider_Button#SettingsPage_Configuration_Container_MasterVolumeSlider_Button#StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="LandingPage/Container/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="LandingPage/Container/ExitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="pressed" from="SettingsPage/Navigation/SettingsReturnButton" to="." method="_on_settings_return_button_pressed"]
+[connection signal="pressed" from="SettingsPage/Navigation/RadioButtons/SettingsAudioRadioButton" to="." method="_on_settings_audio_radio_button_pressed"]
+[connection signal="pressed" from="SettingsPage/Navigation/RadioButtons/SettingsDisplayRadioButton" to="." method="_on_settings_display_radio_button_pressed"]
+[connection signal="value_changed" from="SettingsPage/Configuration/AudioSettings/Container/MasterVolumeSlider/ControlSection/HSlider" to="SettingsPage/Configuration/AudioSettings/Container/MasterVolumeSlider/ControlSection/HSlider" method="_on_value_changed"]
+[connection signal="value_changed" from="SettingsPage/Configuration/AudioSettings/Container/MusicSlider/ControlSection/HSlider" to="SettingsPage/Configuration/AudioSettings/Container/MusicSlider/ControlSection/HSlider" method="_on_value_changed"]
+[connection signal="pressed" from="SettingsPage/Configuration/AudioSettings/Container/MusicSlider/ControlSection/Button" to="SettingsPage/Configuration/AudioSettings/Container/MusicSlider/ControlSection/HSlider" method="_on_button_pressed"]
+[connection signal="pressed" from="SettingsPage/ReturnSection/Control/ReturnButton" to="." method="_on_settings_return_button_pressed"]
+
+[editable path="SettingsPage/Configuration/AudioSettings/Container/MasterVolumeSlider"]
+[editable path="SettingsPage/Configuration/AudioSettings/Container/MusicSlider"]
+[editable path="SettingsPage/Configuration/AudioSettings/Container/SoundSlider"]

@@ -22,7 +22,11 @@ buses/default_bus_layout="uid://8dl1uyt7al72"
 [autoload]
 
 Paths="*uid://bakeulra1n75p"
-Audio="*uid://yvovnpl28xr1"
+Sounds="*uid://c1t70ihhrv4w4"
+
+[display]
+
+window/stretch/mode="canvas_items"
 
 [dotnet]
 
