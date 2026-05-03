@@ -4,14 +4,10 @@ extends Control
 @onready var settings: Node = $SettingsPage as Node
 @onready var audioSettings: Panel = $SettingsPage/Configuration/AudioSettings as Panel
 @onready var displaySettings: Panel = $SettingsPage/Configuration/DisplaySettings as Panel
+@onready var audioSettingsNavigation: CheckBox = $SettingsPage/Navigation/RadioButtons/SettingsAudioRadioButton as CheckBox
+@onready var displaySettingsNavigation: CheckBox = $SettingsPage/Navigation/RadioButtons/SettingsDisplayRadioButton as CheckBox
 
 func _ready() -> void:
-	print(
-		landing_page,
-		settings,
-		audioSettings,
-		displaySettings
-	)
 	navigate(MenuType.LandingPage)
 	
 func _on_start_button_pressed() -> void:
@@ -37,21 +33,18 @@ func _on_theme_finished() -> void:
 func navigate(menuType: MenuType) -> void:
 	landing_page.visible = menuType == MenuType.LandingPage
 	settings.visible = menuType == MenuType.Settings
+	if menuType == MenuType.Settings:
+		switch_settings_section()
 
 func _on_settings_audio_radio_button_pressed() -> void:
-	switch_section(SettingsSection.AUDIO)
+	switch_settings_section()
 
 func _on_settings_display_radio_button_pressed() -> void:
-	switch_section(SettingsSection.DISPLAY)
+	switch_settings_section()
 
-func switch_section(section: SettingsSection) -> void:
-	audioSettings.visible = section == SettingsSection.AUDIO
-	displaySettings.visible = section == SettingsSection.DISPLAY
-
-enum SettingsSection {
-	AUDIO,
-	DISPLAY
-}
+func switch_settings_section() -> void:
+	audioSettings.visible = audioSettingsNavigation.button_pressed
+	displaySettings.visible = displaySettingsNavigation.button_pressed
 
 enum MenuType {
 	LandingPage,

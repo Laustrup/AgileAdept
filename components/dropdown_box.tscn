@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://comgl47h3vq1p"]
+
+[node name="DropdownBox" type="HBoxContainer" unique_id=154218225]
+offset_right = 400.0
+offset_bottom = 50.0
+theme_override_constants/separation = 200
+
+[node name="LabelControl" type="Control" parent="." unique_id=1160015957]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="LabelControl" unique_id=1544701699]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -12.5
+offset_right = 150.0
+offset_bottom = 22.5
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="DropbdownButtonControl" type="Control" parent="." unique_id=2002439001]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="OptionButton" type="OptionButton" parent="DropbdownButtonControl" unique_id=1041895285]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -10.0
+offset_bottom = 25.0
+grow_horizontal = 0
+grow_vertical = 2

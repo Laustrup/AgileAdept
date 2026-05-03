@@ -13,6 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://bhbcl175hg01u" path="res://components/icons/volume-solid-full.svg" id="8_tbmy8"]
 [ext_resource type="Script" uid="uid://p47u044jjxv7" path="res://scripts/settings/sound_control.gd" id="11_flqon"]
 [ext_resource type="Texture2D" uid="uid://dx70ohcdyb55b" path="res://components/icons/volume-xmark-solid-full.svg" id="12_rcqid"]
+[ext_resource type="PackedScene" uid="uid://comgl47h3vq1p" path="res://components/dropdown_box.tscn" id="13_1ajci"]
+[ext_resource type="PackedScene" uid="uid://dfpx3cjfdp443" path="res://components/field_input.tscn" id="15_5pajh"]
+[ext_resource type="Script" uid="uid://23ncnox18wtb" path="res://scripts/settings/display.gd" id="15_j7ex8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j7ex8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wu84c"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -69,17 +74,24 @@ volume_db = 2.0
 autoplay = true
 bus = &"Music"
 
-[node name="Label" type="Label" parent="." unique_id=1852816111]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 31.0
-offset_right = 362.0
-offset_bottom = 91.0
+[node name="TitlePanel" type="Panel" parent="." unique_id=1828097203]
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_j7ex8")
+
+[node name="Title" type="Label" parent="TitlePanel" unique_id=1852816111]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 350.0
+offset_bottom = 80.0
 theme_override_fonts/font = ExtResource("3_4xg86")
 theme_override_font_sizes/font_size = 50
-text = "Agile Adept"
+text = "Agile adept"
 
 [node name="LandingPage" type="Panel" parent="." unique_id=2047536883]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -181,6 +193,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wu84c")
 
 [node name="AudioSettings" type="Panel" parent="SettingsPage/Configuration" unique_id=97709540]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -247,10 +260,130 @@ icon = ExtResource("12_rcqid")
 texture = ExtResource("8_tbmy8")
 
 [node name="DisplaySettings" type="Panel" parent="SettingsPage/Configuration" unique_id=1070074412]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5pajh")
+script = ExtResource("15_j7ex8")
+
+[node name="Container" type="VBoxContainer" parent="SettingsPage/Configuration/DisplaySettings" unique_id=1606506522]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.5
+offset_top = -111.5
+offset_right = 41.5
+offset_bottom = 111.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 100
+
+[node name="ScreenControl" type="Control" parent="SettingsPage/Configuration/DisplaySettings/Container" unique_id=1825660577]
+layout_mode = 2
+
+[node name="ScreenDropdownBox" parent="SettingsPage/Configuration/DisplaySettings/Container/ScreenControl" unique_id=154218225 instance=ExtResource("13_1ajci")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -10.0
+offset_right = 150.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" parent="SettingsPage/Configuration/DisplaySettings/Container/ScreenControl/ScreenDropdownBox/LabelControl" parent_id_path=PackedInt32Array(154218225, 1160015957) index="0" unique_id=1544701699]
+offset_top = -17.5
+offset_bottom = 17.5
+text = "Mode"
+
+[node name="OptionButton" parent="SettingsPage/Configuration/DisplaySettings/Container/ScreenControl/ScreenDropdownBox/DropbdownButtonControl" parent_id_path=PackedInt32Array(154218225, 2002439001) index="0" unique_id=1041895285]
+offset_top = -17.5
+offset_bottom = 17.5
+selected = 0
+item_count = 3
+popup/item_0/text = "Full screen"
+popup/item_0/id = 0
+popup/item_1/text = "Maximized"
+popup/item_1/id = 1
+popup/item_2/text = "Windowed"
+popup/item_2/id = 2
+
+[node name="ResolutionContainer" type="VBoxContainer" parent="SettingsPage/Configuration/DisplaySettings/Container" unique_id=634683615]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="ResolutionTitle" type="Label" parent="SettingsPage/Configuration/DisplaySettings/Container/ResolutionContainer" unique_id=152293926]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Resolution"
+
+[node name="ResolutionWidthControl" type="Control" parent="SettingsPage/Configuration/DisplaySettings/Container/ResolutionContainer" unique_id=1333328398]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ResolutionWidthFieldInput" parent="SettingsPage/Configuration/DisplaySettings/Container/ResolutionContainer/ResolutionWidthControl" unique_id=1068280255 instance=ExtResource("15_5pajh")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -12.5
+offset_right = 200.0
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" parent="SettingsPage/Configuration/DisplaySettings/Container/ResolutionContainer/ResolutionWidthControl/ResolutionWidthFieldInput/LabelControl" parent_id_path=PackedInt32Array(1068280255, 766773467) index="0" unique_id=319553748]
+text = "Width"
+
+[node name="ResolutionHeightControl" type="Control" parent="SettingsPage/Configuration/DisplaySettings/Container/ResolutionContainer" unique_id=771843681]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ResolutionHeightFieldInput" parent="SettingsPage/Configuration/DisplaySettings/Container/ResolutionContainer/ResolutionHeightControl" unique_id=1915562512 instance=ExtResource("15_5pajh")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -12.5
+offset_right = 200.0
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" parent="SettingsPage/Configuration/DisplaySettings/Container/ResolutionContainer/ResolutionHeightControl/ResolutionHeightFieldInput/LabelControl" parent_id_path=PackedInt32Array(1915562512, 766773467) index="0" unique_id=319553748]
+text = "Height"
+
+[node name="ResetResolutionControl" type="Control" parent="SettingsPage/Configuration/DisplaySettings/Container/ResolutionContainer" unique_id=1149120751]
+layout_mode = 2
+
+[node name="ResetResolutionButton" parent="SettingsPage/Configuration/DisplaySettings/Container/ResolutionContainer/ResetResolutionControl" unique_id=774283638 instance=ExtResource("5_x2yjq")]
+layout_mode = 1
+offset_left = 20.0
+offset_right = 170.0
+offset_bottom = 50.0
+text = "Reset Resolution"
 
 [node name="ReturnSection" type="Panel" parent="SettingsPage" unique_id=1130162186]
 layout_mode = 1
@@ -307,8 +440,15 @@ texture = ExtResource("4_thkx5")
 [connection signal="value_changed" from="SettingsPage/Configuration/AudioSettings/Container/MasterVolumeSlider/ControlSection/HSlider" to="SettingsPage/Configuration/AudioSettings/Container/MasterVolumeSlider/ControlSection/HSlider" method="_on_value_changed"]
 [connection signal="value_changed" from="SettingsPage/Configuration/AudioSettings/Container/MusicSlider/ControlSection/HSlider" to="SettingsPage/Configuration/AudioSettings/Container/MusicSlider/ControlSection/HSlider" method="_on_value_changed"]
 [connection signal="pressed" from="SettingsPage/Configuration/AudioSettings/Container/MusicSlider/ControlSection/Button" to="SettingsPage/Configuration/AudioSettings/Container/MusicSlider/ControlSection/HSlider" method="_on_button_pressed"]
+[connection signal="item_selected" from="SettingsPage/Configuration/DisplaySettings/Container/ScreenControl/ScreenDropdownBox/DropbdownButtonControl/OptionButton" to="SettingsPage/Configuration/DisplaySettings" method="_on_screen_item_selected"]
+[connection signal="value_changed" from="SettingsPage/Configuration/DisplaySettings/Container/ResolutionContainer/ResolutionWidthControl/ResolutionWidthFieldInput/InputControl/SpinBox" to="SettingsPage/Configuration/DisplaySettings" method="_on_width_spin_box_value_changed"]
+[connection signal="value_changed" from="SettingsPage/Configuration/DisplaySettings/Container/ResolutionContainer/ResolutionHeightControl/ResolutionHeightFieldInput/InputControl/SpinBox" to="SettingsPage/Configuration/DisplaySettings" method="_on_height_spin_box_value_changed"]
+[connection signal="pressed" from="SettingsPage/Configuration/DisplaySettings/Container/ResolutionContainer/ResetResolutionControl/ResetResolutionButton" to="SettingsPage/Configuration/DisplaySettings" method="_on_reset_resolution_button_pressed"]
 [connection signal="pressed" from="SettingsPage/ReturnSection/Control/ReturnButton" to="." method="_on_settings_return_button_pressed"]
 
 [editable path="SettingsPage/Configuration/AudioSettings/Container/MasterVolumeSlider"]
 [editable path="SettingsPage/Configuration/AudioSettings/Container/MusicSlider"]
 [editable path="SettingsPage/Configuration/AudioSettings/Container/SoundSlider"]
+[editable path="SettingsPage/Configuration/DisplaySettings/Container/ScreenControl/ScreenDropdownBox"]
+[editable path="SettingsPage/Configuration/DisplaySettings/Container/ResolutionContainer/ResolutionWidthControl/ResolutionWidthFieldInput"]
+[editable path="SettingsPage/Configuration/DisplaySettings/Container/ResolutionContainer/ResolutionHeightControl/ResolutionHeightFieldInput"]

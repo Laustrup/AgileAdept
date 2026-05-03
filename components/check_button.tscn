@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://b4vq3jydndpfw"]
+
+[node name="CheckButton" type="HBoxContainer" unique_id=71915523]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CheckButtonLabelControl" type="Control" parent="." unique_id=231965502]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CheckButtonLabelControl" unique_id=2008528595]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 11.0
+offset_bottom = 31.0
+
+[node name="CheckButtonControl" type="Control" parent="." unique_id=1731051149]
+layout_mode = 2
+
+[node name="Switch" type="CheckButton" parent="CheckButtonControl" unique_id=702760715]
+layout_mode = 0
+offset_left = -52.0
+offset_right = -8.0
+offset_bottom = 40.0

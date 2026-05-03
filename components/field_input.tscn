@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dfpx3cjfdp443"]
+
+[node name="SpinboxFieldInput" type="HBoxContainer" unique_id=1915562512]
+offset_right = 400.0
+offset_bottom = 35.0
+theme_override_constants/separation = 200
+
+[node name="LabelControl" type="Control" parent="." unique_id=766773467]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="LabelControl" unique_id=319553748]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -12.5
+offset_right = 150.0
+offset_bottom = 22.5
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="InputControl" type="Control" parent="." unique_id=778573571]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SpinBox" type="SpinBox" parent="InputControl" unique_id=455798724]
+layout_mode = 0
+offset_right = 150.0
+offset_bottom = 35.0
+max_value = 10000.0

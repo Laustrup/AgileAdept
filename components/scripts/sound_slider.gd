@@ -25,7 +25,7 @@ func change_value_of_bus(value: float) -> void:
 		volume = Sounds.SOUND_LINEAR_VOLUME_LIMIT
 
 	AudioServer.set_bus_volume_db(bus_index, volume)
-	print("\nChanging sound\n\tvalue: %s\n\tvolume: %s\n" % [value, volume])
+#	print("\nChanging sound\n\tvalue: %s\n\tvolume: %s\n" % [value, volume])
 
 func sound_on_or_off() -> void:
 	AudioServer.set_bus_mute(bus_index, !AudioServer.is_bus_mute(bus_index))
