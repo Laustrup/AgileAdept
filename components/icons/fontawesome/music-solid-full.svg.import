@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://btssnnpbcdwrg"
-path="res://.godot/imported/music-solid-full.svg-7be66026066609a38f90a55877855d44.ctex"
+path="res://.godot/imported/music-solid-full.svg-7312cf287483c787d6b518cb3490e35e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/icons/music-solid-full.svg"
-dest_files=["res://.godot/imported/music-solid-full.svg-7be66026066609a38f90a55877855d44.ctex"]
+source_file="res://components/icons/fontawesome/music-solid-full.svg"
+dest_files=["res://.godot/imported/music-solid-full.svg-7312cf287483c787d6b518cb3490e35e.ctex"]
 
 [params]
 

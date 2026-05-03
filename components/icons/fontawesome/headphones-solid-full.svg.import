@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bqrxhmwr4c83i"
-path="res://.godot/imported/headphones-solid-full.svg-4923347b2180ebd6ccc410a2484b836e.ctex"
+path="res://.godot/imported/headphones-solid-full.svg-682493b01f37707b857e2f9780f1cb10.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/icons/headphones-solid-full.svg"
-dest_files=["res://.godot/imported/headphones-solid-full.svg-4923347b2180ebd6ccc410a2484b836e.ctex"]
+source_file="res://components/icons/fontawesome/headphones-solid-full.svg"
+dest_files=["res://.godot/imported/headphones-solid-full.svg-682493b01f37707b857e2f9780f1cb10.ctex"]
 
 [params]
 

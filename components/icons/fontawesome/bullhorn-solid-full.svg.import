@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2ddmonbxxn37"
-path="res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+uid="uid://bfpb0oab08t7f"
+path="res://.godot/imported/bullhorn-solid-full.svg-18e18a702c0a931c97774fb85d8029f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icon.svg"
-dest_files=["res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"]
+source_file="res://components/icons/fontawesome/bullhorn-solid-full.svg"
+dest_files=["res://.godot/imported/bullhorn-solid-full.svg-18e18a702c0a931c97774fb85d8029f4.ctex"]
 
 [params]
 

@@ -1,11 +1,7 @@
 extends Control
 
-@onready var landing_page: Panel = $LandingPage as Panel
-@onready var settings: Node = $SettingsPage as Node
-@onready var audioSettings: Panel = $SettingsPage/Configuration/AudioSettings as Panel
-@onready var displaySettings: Panel = $SettingsPage/Configuration/DisplaySettings as Panel
-@onready var audioSettingsNavigation: CheckBox = $SettingsPage/Navigation/RadioButtons/SettingsAudioRadioButton as CheckBox
-@onready var displaySettingsNavigation: CheckBox = $SettingsPage/Navigation/RadioButtons/SettingsDisplayRadioButton as CheckBox
+@onready var landing_page: Panel = $Main/LandingPage as Panel
+@onready var settings: Node = $Main/Settings as PanelContainer
 
 func _ready() -> void:
 	navigate(MenuType.LandingPage)
@@ -33,18 +29,6 @@ func _on_theme_finished() -> void:
 func navigate(menuType: MenuType) -> void:
 	landing_page.visible = menuType == MenuType.LandingPage
 	settings.visible = menuType == MenuType.Settings
-	if menuType == MenuType.Settings:
-		switch_settings_section()
-
-func _on_settings_audio_radio_button_pressed() -> void:
-	switch_settings_section()
-
-func _on_settings_display_radio_button_pressed() -> void:
-	switch_settings_section()
-
-func switch_settings_section() -> void:
-	audioSettings.visible = audioSettingsNavigation.button_pressed
-	displaySettings.visible = displaySettingsNavigation.button_pressed
 
 enum MenuType {
 	LandingPage,

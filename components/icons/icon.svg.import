@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dx70ohcdyb55b"
-path="res://.godot/imported/volume-xmark-solid-full.svg-606ecfe5cd85efbdb1c003083fad501d.ctex"
+uid="uid://c2ddmonbxxn37"
+path="res://.godot/imported/icon.svg-2b576375a0c74c1c89538fdeaf9ff747.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/icons/volume-xmark-solid-full.svg"
-dest_files=["res://.godot/imported/volume-xmark-solid-full.svg-606ecfe5cd85efbdb1c003083fad501d.ctex"]
+source_file="res://components/icons/icon.svg"
+dest_files=["res://.godot/imported/icon.svg-2b576375a0c74c1c89538fdeaf9ff747.ctex"]
 
 [params]
 

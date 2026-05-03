@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhbcl175hg01u"
-path="res://.godot/imported/volume-solid-full.svg-c7ef01439ce0363785d5e4efd45e2ae4.ctex"
+uid="uid://bw3xhvruwugi6"
+path="res://.godot/imported/asterisk-solid-full.svg-dae7bdb0c09d23e6e6b11fd223aa537c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/icons/volume-solid-full.svg"
-dest_files=["res://.godot/imported/volume-solid-full.svg-c7ef01439ce0363785d5e4efd45e2ae4.ctex"]
+source_file="res://components/icons/fontawesome/asterisk-solid-full.svg"
+dest_files=["res://.godot/imported/asterisk-solid-full.svg-dae7bdb0c09d23e6e6b11fd223aa537c.ctex"]
 
 [params]
 
