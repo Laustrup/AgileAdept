@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://djp72dbwwuowu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7b55j"]
+bg_color = Color(0.28542295, 0.28542295, 0.28542295, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.14509805)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j7ex8"]
+bg_color = Color(0.35762417, 0.35762417, 0.35762417, 0)
+border_width_top = 5
+border_width_bottom = 10
+border_color = Color(0.8, 0.8, 0.8, 0)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ufln8"]
+bg_color = Color(0.37254903, 0.37254903, 0.37254903, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 3.0
+expand_margin_top = 1.0
+expand_margin_right = 3.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7bb1"]
+bg_color = Color(0.4509804, 0.4509804, 0.4509804, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 3.0
+expand_margin_top = 1.0
+expand_margin_right = 3.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wlosb"]
+bg_color = Color(0.64705884, 0.64705884, 0.64705884, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 3.0
+expand_margin_top = 1.0
+expand_margin_right = 3.0
+expand_margin_bottom = 1.0
+
+[node name="Tabs" type="TabContainer" unique_id=2016802031]
+theme_override_colors/font_selected_color = Color(0.08229024, 0.5176986, 0.4354895, 1)
+theme_override_colors/font_hovered_color = Color(0.30588236, 0.9490196, 0.9490196, 1)
+theme_override_constants/tab_separation = 15
+theme_override_font_sizes/font_size = 15
+theme_override_styles/panel = SubResource("StyleBoxFlat_7b55j")
+theme_override_styles/tabbar_background = SubResource("StyleBoxFlat_j7ex8")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_ufln8")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_e7bb1")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_wlosb")
+tab_alignment = 1
+drag_to_rearrange_enabled = true

@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://3mcibooktemi" path="res://scripts/main_menu.gd" id="1_3ovsr"]
 [ext_resource type="AudioStream" uid="uid://yorv5rf0mbxv" path="res://audio/sounds/Wild one (Agile Adept)_session.mp3" id="2_5seab"]
 [ext_resource type="FontFile" uid="uid://c6yoyhva7aj2b" path="res://components/fonts/Bitcount-VariableFont_CRSV,ELSH,ELXP,slnt,wght.ttf" id="3_4xg86"]
-[ext_resource type="Texture2D" uid="uid://c2ddmonbxxn37" path="res://components/icons/icon.svg" id="4_thkx5"]
 [ext_resource type="PackedScene" uid="uid://dralqfwx6u7n8" path="res://components/button.tscn" id="5_x2yjq"]
+[ext_resource type="PackedScene" uid="uid://djp72dbwwuowu" path="res://components/tabs_container.tscn" id="6_5pajh"]
 [ext_resource type="PackedScene" uid="uid://y0i173ef0ymc" path="res://components/slider.tscn" id="6_rtw2f"]
 [ext_resource type="Texture2D" uid="uid://btssnnpbcdwrg" path="res://components/icons/fontawesome/music-solid-full.svg" id="7_oa1go"]
 [ext_resource type="Texture2D" uid="uid://bw3xhvruwugi6" path="res://components/icons/fontawesome/asterisk-solid-full.svg" id="8_1ajci"]
@@ -15,10 +15,20 @@
 [ext_resource type="PackedScene" uid="uid://comgl47h3vq1p" path="res://components/dropdown_box.tscn" id="13_1ajci"]
 [ext_resource type="Script" uid="uid://23ncnox18wtb" path="res://scripts/settings/display.gd" id="13_7b55j"]
 [ext_resource type="PackedScene" uid="uid://dfpx3cjfdp443" path="res://components/field_input.tscn" id="15_5pajh"]
+[ext_resource type="PackedScene" uid="uid://lvh51qt7s35i" path="res://components/empty_panel.tscn" id="17_j7ex8"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j7ex8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8gd2"]
+bg_color = Color(0.19607843, 0.19607843, 0.19607843, 0.39215687)
+border_width_right = 5
+border_color = Color(0, 0, 0, 0.15686275)
+border_blend = true
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rcqid"]
+[sub_resource type="GDScript" id="GDScript_rcqid"]
+script/source = "extends Control
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j7ex8"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5pajh"]
 bg_color = Color(0.6, 0.6, 0.6, 0.39215687)
@@ -33,46 +43,15 @@ corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wu84c"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="GDScript" id="GDScript_rcqid"]
-script/source = "extends Control
-
-@onready var audioSettings: Panel = $AudioSettings as Panel
-@onready var displaySettings: Panel = $DisplaySettings as Panel
-
-func _ready() -> void:
-	print(audioSettings)
-
-func _on_settings_audio_radio_button_pressed() -> void:
-	switch_section(SettingsSection.AUDIO)
-
-func _on_settings_display_radio_button_pressed() -> void:
-	switch_section(SettingsSection.DISPLAY)
-
-func switch_section(section: SettingsSection) -> void:
-	audioSettings.visible = section == SettingsSection.AUDIO
-	displaySettings.visible = section == SettingsSection.DISPLAY
-
-enum SettingsSection {
-	AUDIO,
-	DISPLAY
-}
-"
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a8gd2"]
-
 [node name="MainMenu" type="Control" unique_id=445002498]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3ovsr")
+metadata/_edit_use_anchors_ = true
 
 [node name="Music" type="AudioStreamPlayer2D" parent="." unique_id=153821012]
 stream = ExtResource("2_5seab")
@@ -80,128 +59,95 @@ volume_db = 2.0
 autoplay = true
 bus = &"Music"
 
-[node name="TitlePanel" type="Panel" parent="." unique_id=1828097203]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -250.0
-offset_right = 250.0
-offset_bottom = 100.0
-grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_j7ex8")
-
-[node name="Container" type="MarginContainer" parent="TitlePanel" unique_id=1756845958]
+[node name="MenuSections" type="HBoxContainer" parent="." unique_id=763670147]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Sidebar" parent="MenuSections" unique_id=1420653161 instance=ExtResource("17_j7ex8")]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_a8gd2")
+metadata/_edit_use_anchors_ = true
+
+[node name="Navigation" type="MarginContainer" parent="MenuSections/Sidebar" unique_id=1771107827]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 175
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 175
+
+[node name="Buttons" type="VBoxContainer" parent="MenuSections/Sidebar/Navigation" unique_id=251652956]
+layout_mode = 2
+theme_override_constants/separation = 50
+script = SubResource("GDScript_rcqid")
+
+[node name="PlayButton" parent="MenuSections/Sidebar/Navigation/Buttons" unique_id=596426204 instance=ExtResource("5_x2yjq")]
+layout_mode = 2
+size_flags_vertical = 3
+toggle_mode = true
+text = "Play
+"
+
+[node name="SettingsButton" parent="MenuSections/Sidebar/Navigation/Buttons" unique_id=1829992750 instance=ExtResource("5_x2yjq")]
+layout_mode = 2
+size_flags_vertical = 3
+toggle_mode = true
+text = "Options"
+
+[node name="ExitButton" parent="MenuSections/Sidebar/Navigation/Buttons" unique_id=215465323 instance=ExtResource("5_x2yjq")]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Exit"
+
+[node name="Body" type="VBoxContainer" parent="MenuSections" unique_id=373853545]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleSection" type="PanelContainer" parent="MenuSections/Body" unique_id=604171119]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j7ex8")
+
+[node name="Container" type="MarginContainer" parent="MenuSections/Body/TitleSection" unique_id=1756845958]
+layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 20
 
-[node name="Title" type="Label" parent="TitlePanel/Container" unique_id=1852816111]
+[node name="Title" type="Label" parent="MenuSections/Body/TitleSection/Container" unique_id=1852816111]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_4xg86")
 theme_override_font_sizes/font_size = 50
 text = "Agile adept"
 
-[node name="Panel" type="Panel" parent="." unique_id=1392657824]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_rcqid")
-metadata/_edit_use_anchors_ = true
+[node name="MainSection" type="MarginContainer" parent="MenuSections/Body" unique_id=47796449]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 50
 
-[node name="TextureRect" type="TextureRect" parent="Panel" unique_id=1673369064]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -140.0
-offset_top = -140.0
-offset_right = -12.0
-offset_bottom = -12.0
-grow_horizontal = 0
-grow_vertical = 0
-texture = ExtResource("4_thkx5")
-
-[node name="Main" type="PanelContainer" parent="." unique_id=908488268]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -200.0
-offset_right = 250.0
-offset_bottom = 250.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Main" type="PanelContainer" parent="MenuSections/Body/MainSection" unique_id=908488268]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_5pajh")
 metadata/_edit_use_anchors_ = true
 
-[node name="LandingPage" type="Panel" parent="Main" unique_id=2047536883]
-visible = false
+[node name="Settings" type="MarginContainer" parent="MenuSections/Body/MainSection/Main" unique_id=1964328387]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_wu84c")
 
-[node name="ButtonSection" type="MarginContainer" parent="Main/LandingPage" unique_id=1771107827]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 125
-theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 125
-
-[node name="Buttons" type="VBoxContainer" parent="Main/LandingPage/ButtonSection" unique_id=251652956]
-layout_mode = 2
-theme_override_constants/separation = 10
-script = SubResource("GDScript_rcqid")
-
-[node name="PlayButton" parent="Main/LandingPage/ButtonSection/Buttons" unique_id=562070206 instance=ExtResource("5_x2yjq")]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Play
-"
-
-[node name="SettingsButton" parent="Main/LandingPage/ButtonSection/Buttons" unique_id=1829992750 instance=ExtResource("5_x2yjq")]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Options"
-
-[node name="ExitButton" parent="Main/LandingPage/ButtonSection/Buttons" unique_id=215465323 instance=ExtResource("5_x2yjq")]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Exit"
-
-[node name="Settings" type="PanelContainer" parent="Main" unique_id=1707889313]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_a8gd2")
-
-[node name="Elements" type="VBoxContainer" parent="Main/Settings" unique_id=550714998]
+[node name="Elements" type="VBoxContainer" parent="MenuSections/Body/MainSection/Main/Settings" unique_id=550714998]
 clip_contents = true
 layout_mode = 2
 
-[node name="SettingsHeader" type="MarginContainer" parent="Main/Settings/Elements" unique_id=2083333311]
+[node name="SettingsHeader" type="MarginContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements" unique_id=2083333311]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
@@ -210,117 +156,121 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 15
 
-[node name="SettingsTitleLabel" type="Label" parent="Main/Settings/Elements/SettingsHeader" unique_id=1531574801]
+[node name="SettingsTitleLabel" type="Label" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsHeader" unique_id=1531574801]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Settings"
 
-[node name="SettingsBody" type="MarginContainer" parent="Main/Settings/Elements" unique_id=649630677]
+[node name="SettingsBody" type="MarginContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements" unique_id=649630677]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 
-[node name="Tabs" type="TabContainer" parent="Main/Settings/Elements/SettingsBody" unique_id=347866914]
+[node name="Tabs" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody" unique_id=2016802031 instance=ExtResource("6_5pajh")]
 layout_mode = 2
-current_tab = 1
+current_tab = 2
 
-[node name="Audio" type="MarginContainer" parent="Main/Settings/Elements/SettingsBody/Tabs" unique_id=1554775658]
+[node name="Audio" type="MarginContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs" unique_id=1554775658]
 visible = false
 layout_mode = 2
-theme_override_constants/margin_left = 10
+theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 20
 metadata/_tab_index = 0
 
-[node name="Scroll" type="ScrollContainer" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio" unique_id=2065372717]
+[node name="Scroll" type="ScrollContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio" unique_id=2065372717]
 layout_mode = 2
 
-[node name="Components" type="VBoxContainer" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll" unique_id=1530720415]
+[node name="Components" type="VBoxContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll" unique_id=1530720415]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 theme_override_constants/separation = 50
 
-[node name="MasterVolumeSlider" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components" unique_id=446132810 instance=ExtResource("6_rtw2f")]
+[node name="MasterVolumeSlider" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components" unique_id=446132810 instance=ExtResource("6_rtw2f")]
 layout_mode = 2
 size_flags_horizontal = 1
 
-[node name="Icon" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns" parent_id_path=PackedInt32Array(446132810, 1168874037) index="0" unique_id=829601449]
+[node name="Icon" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns" parent_id_path=PackedInt32Array(446132810, 1168874037) index="0" unique_id=829601449]
 texture = ExtResource("8_1ajci")
 
-[node name="Label" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns" parent_id_path=PackedInt32Array(446132810, 1168874037) index="1" unique_id=895190477]
+[node name="Label" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns" parent_id_path=PackedInt32Array(446132810, 1168874037) index="1" unique_id=895190477]
 text = "Master"
 
-[node name="Slider" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns" parent_id_path=PackedInt32Array(446132810, 1168874037) index="2" unique_id=1734806851]
+[node name="Slider" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns" parent_id_path=PackedInt32Array(446132810, 1168874037) index="2" unique_id=1734806851]
 script = ExtResource("8_7b55j")
 
-[node name="Button" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns" parent_id_path=PackedInt32Array(446132810, 1168874037) index="3" unique_id=562070206]
+[node name="Button" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns" parent_id_path=PackedInt32Array(446132810, 1168874037) index="3" unique_id=562070206]
 icon = ExtResource("8_tbmy8")
 
-[node name="MusicSlider" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components" unique_id=1560754593 instance=ExtResource("6_rtw2f")]
+[node name="MusicSlider" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components" unique_id=1560754593 instance=ExtResource("6_rtw2f")]
 layout_mode = 2
 size_flags_horizontal = 1
 
-[node name="Icon" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns" parent_id_path=PackedInt32Array(1560754593, 1168874037) index="0" unique_id=829601449]
+[node name="Icon" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns" parent_id_path=PackedInt32Array(1560754593, 1168874037) index="0" unique_id=829601449]
 texture = ExtResource("7_oa1go")
 
-[node name="Label" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns" parent_id_path=PackedInt32Array(1560754593, 1168874037) index="1" unique_id=895190477]
+[node name="Label" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns" parent_id_path=PackedInt32Array(1560754593, 1168874037) index="1" unique_id=895190477]
 text = "Music"
 
-[node name="Slider" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns" parent_id_path=PackedInt32Array(1560754593, 1168874037) index="2" unique_id=1734806851]
+[node name="Slider" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns" parent_id_path=PackedInt32Array(1560754593, 1168874037) index="2" unique_id=1734806851]
 script = ExtResource("11_5pajh")
 
-[node name="Button" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns" parent_id_path=PackedInt32Array(1560754593, 1168874037) index="3" unique_id=562070206]
+[node name="Button" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns" parent_id_path=PackedInt32Array(1560754593, 1168874037) index="3" unique_id=562070206]
 icon = ExtResource("8_tbmy8")
 
-[node name="SoundSlider" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components" unique_id=894853954 instance=ExtResource("6_rtw2f")]
+[node name="SoundSlider" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components" unique_id=894853954 instance=ExtResource("6_rtw2f")]
 layout_mode = 2
 size_flags_horizontal = 1
 
-[node name="Icon" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/SoundSlider/Columns" parent_id_path=PackedInt32Array(894853954, 1168874037) index="0" unique_id=829601449]
+[node name="Icon" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/SoundSlider/Columns" parent_id_path=PackedInt32Array(894853954, 1168874037) index="0" unique_id=829601449]
 texture = ExtResource("11_7b55j")
 
-[node name="Label" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/SoundSlider/Columns" parent_id_path=PackedInt32Array(894853954, 1168874037) index="1" unique_id=895190477]
+[node name="Label" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/SoundSlider/Columns" parent_id_path=PackedInt32Array(894853954, 1168874037) index="1" unique_id=895190477]
 text = "Sound"
 
-[node name="Button" parent="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/SoundSlider/Columns" parent_id_path=PackedInt32Array(894853954, 1168874037) index="3" unique_id=562070206]
+[node name="Slider" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/SoundSlider/Columns" parent_id_path=PackedInt32Array(894853954, 1168874037) index="2" unique_id=1734806851]
+audio_bus_name = null
+
+[node name="Button" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/SoundSlider/Columns" parent_id_path=PackedInt32Array(894853954, 1168874037) index="3" unique_id=562070206]
 icon = ExtResource("8_tbmy8")
 
-[node name="Display" type="MarginContainer" parent="Main/Settings/Elements/SettingsBody/Tabs" unique_id=245614953]
+[node name="Display" type="MarginContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs" unique_id=245614953]
+visible = false
 layout_mode = 2
-theme_override_constants/margin_left = 20
+theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 10
 script = ExtResource("13_7b55j")
 metadata/_tab_index = 1
 
-[node name="Scroll" type="ScrollContainer" parent="Main/Settings/Elements/SettingsBody/Tabs/Display" unique_id=380151417]
+[node name="Scroll" type="ScrollContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display" unique_id=380151417]
 layout_mode = 2
 
-[node name="Components" type="VBoxContainer" parent="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll" unique_id=1606506522]
+[node name="Components" type="VBoxContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll" unique_id=1606506522]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 theme_override_constants/separation = 50
 
-[node name="DisplayMode" type="MarginContainer" parent="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components" unique_id=2134025033]
+[node name="DisplayMode" type="MarginContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components" unique_id=2134025033]
 layout_mode = 2
 theme_override_constants/margin_top = 20
 
-[node name="ScreenDropdownBox" parent="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/DisplayMode" unique_id=154218225 instance=ExtResource("13_1ajci")]
+[node name="ScreenDropdownBox" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/DisplayMode" unique_id=154218225 instance=ExtResource("13_1ajci")]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="Label" parent="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/DisplayMode/ScreenDropdownBox/LabelControl" parent_id_path=PackedInt32Array(154218225, 1160015957) index="0" unique_id=1544701699]
+[node name="Label" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/DisplayMode/ScreenDropdownBox/LabelControl" parent_id_path=PackedInt32Array(154218225, 1160015957) index="0" unique_id=1544701699]
 offset_top = -17.5
 offset_bottom = 17.5
 text = "Mode"
 
-[node name="OptionButton" parent="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/DisplayMode/ScreenDropdownBox/DropbdownButtonControl" parent_id_path=PackedInt32Array(154218225, 2002439001) index="0" unique_id=1041895285]
+[node name="OptionButton" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/DisplayMode/ScreenDropdownBox/DropbdownButtonControl" parent_id_path=PackedInt32Array(154218225, 2002439001) index="0" unique_id=1041895285]
 offset_top = -17.5
 offset_bottom = 17.5
 selected = 0
@@ -332,20 +282,20 @@ popup/item_1/id = 1
 popup/item_2/text = "Windowed"
 popup/item_2/id = 2
 
-[node name="ResolutionContainer" type="VBoxContainer" parent="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components" unique_id=634683615]
+[node name="ResolutionContainer" type="VBoxContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components" unique_id=634683615]
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="ResolutionTitle" type="Label" parent="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer" unique_id=152293926]
+[node name="ResolutionTitle" type="Label" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer" unique_id=152293926]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Resolution"
 
-[node name="ResolutionWidthControl" type="Control" parent="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer" unique_id=1333328398]
+[node name="ResolutionWidthControl" type="Control" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer" unique_id=1333328398]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="ResolutionWidthFieldInput" parent="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionWidthControl" unique_id=1068280255 instance=ExtResource("15_5pajh")]
+[node name="ResolutionWidthFieldInput" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionWidthControl" unique_id=1068280255 instance=ExtResource("15_5pajh")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -359,14 +309,14 @@ offset_bottom = 12.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" parent="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionWidthControl/ResolutionWidthFieldInput/LabelControl" parent_id_path=PackedInt32Array(1068280255, 766773467) index="0" unique_id=319553748]
+[node name="Label" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionWidthControl/ResolutionWidthFieldInput/LabelControl" parent_id_path=PackedInt32Array(1068280255, 766773467) index="0" unique_id=319553748]
 text = "Width"
 
-[node name="ResolutionHeightControl" type="Control" parent="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer" unique_id=771843681]
+[node name="ResolutionHeightControl" type="Control" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer" unique_id=771843681]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="ResolutionHeightFieldInput" parent="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionHeightControl" unique_id=1915562512 instance=ExtResource("15_5pajh")]
+[node name="ResolutionHeightFieldInput" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionHeightControl" unique_id=1915562512 instance=ExtResource("15_5pajh")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -380,57 +330,75 @@ offset_bottom = 12.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" parent="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionHeightControl/ResolutionHeightFieldInput/LabelControl" parent_id_path=PackedInt32Array(1915562512, 766773467) index="0" unique_id=319553748]
+[node name="Label" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionHeightControl/ResolutionHeightFieldInput/LabelControl" parent_id_path=PackedInt32Array(1915562512, 766773467) index="0" unique_id=319553748]
 text = "Height"
 
-[node name="MarginContainer" type="MarginContainer" parent="Main/Settings/Elements" unique_id=277801152]
+[node name="Controls" type="MarginContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs" unique_id=2087971938]
 layout_mode = 2
-size_flags_vertical = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Main/Settings/Elements/MarginContainer" unique_id=260797045]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="Main/Settings/Elements/MarginContainer/HBoxContainer" unique_id=679191677]
-layout_mode = 2
-size_flags_horizontal = 3
 theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 10
-
-[node name="ReturnButton" parent="Main/Settings/Elements/MarginContainer/HBoxContainer/MarginContainer" unique_id=646074098 instance=ExtResource("5_x2yjq")]
-layout_mode = 2
-text = "Return"
-
-[node name="MarginContainer2" type="MarginContainer" parent="Main/Settings/Elements/MarginContainer/HBoxContainer" unique_id=1018765469]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
+metadata/_tab_index = 2
 
-[node name="ResetSettingsButton" parent="Main/Settings/Elements/MarginContainer/HBoxContainer/MarginContainer2" unique_id=774283638 instance=ExtResource("5_x2yjq")]
+[node name="Tabs" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Controls" unique_id=1981180511 instance=ExtResource("6_5pajh")]
+layout_mode = 2
+tab_alignment = 0
+current_tab = 0
+
+[node name="Keyboard" type="MarginContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Controls/Tabs" unique_id=907984525]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements" unique_id=277801152]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements/MarginContainer" unique_id=260797045]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LeftContainer" type="MarginContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements/MarginContainer/HBoxContainer" unique_id=679191677]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 20
+
+[node name="CloseButton" parent="MenuSections/Body/MainSection/Main/Settings/Elements/MarginContainer/HBoxContainer/LeftContainer" unique_id=646074098 instance=ExtResource("5_x2yjq")]
+layout_mode = 2
+text = "Close"
+
+[node name="RightContainer" type="MarginContainer" parent="MenuSections/Body/MainSection/Main/Settings/Elements/MarginContainer/HBoxContainer" unique_id=1018765469]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 20
+
+[node name="ResetSettingsButton" parent="MenuSections/Body/MainSection/Main/Settings/Elements/MarginContainer/HBoxContainer/RightContainer" unique_id=774283638 instance=ExtResource("5_x2yjq")]
 layout_mode = 2
 text = "Reset"
 
 [connection signal="finished" from="Music" to="." method="_on_theme_finished"]
-[connection signal="pressed" from="Main/LandingPage/ButtonSection/Buttons/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="Main/LandingPage/ButtonSection/Buttons/ExitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="value_changed" from="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns/Slider" to="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns/Slider" method="_on_value_changed"]
-[connection signal="pressed" from="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns/Button" to="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns/Slider" method="_on_button_pressed"]
-[connection signal="value_changed" from="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns/Slider" to="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns/Slider" method="_on_value_changed"]
-[connection signal="pressed" from="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns/Button" to="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns/Slider" method="_on_button_pressed"]
-[connection signal="item_selected" from="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/DisplayMode/ScreenDropdownBox/DropbdownButtonControl/OptionButton" to="Main/Settings/Elements/SettingsBody/Tabs/Display" method="_on_mode_item_selected"]
-[connection signal="value_changed" from="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionWidthControl/ResolutionWidthFieldInput/InputControl/SpinBox" to="Main/Settings/Elements/SettingsBody/Tabs/Display" method="_on_width_spin_box_value_changed"]
-[connection signal="value_changed" from="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionHeightControl/ResolutionHeightFieldInput/InputControl/SpinBox" to="Main/Settings/Elements/SettingsBody/Tabs/Display" method="_on_height_spin_box_value_changed"]
-[connection signal="pressed" from="Main/Settings/Elements/MarginContainer/HBoxContainer/MarginContainer/ReturnButton" to="." method="_on_settings_return_button_pressed"]
-[connection signal="pressed" from="Main/Settings/Elements/MarginContainer/HBoxContainer/MarginContainer2/ResetSettingsButton" to="Main/Settings/Elements/SettingsBody/Tabs/Display" method="_on_reset_button_pressed"]
+[connection signal="pressed" from="MenuSections/Sidebar/Navigation/Buttons/PlayButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MenuSections/Sidebar/Navigation/Buttons/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MenuSections/Sidebar/Navigation/Buttons/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="value_changed" from="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns/Slider" to="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns/Slider" method="_on_value_changed"]
+[connection signal="pressed" from="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns/Button" to="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider/Columns/Slider" method="_on_button_pressed"]
+[connection signal="value_changed" from="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns/Slider" to="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns/Slider" method="_on_value_changed"]
+[connection signal="pressed" from="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns/Button" to="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider/Columns/Slider" method="_on_button_pressed"]
+[connection signal="item_selected" from="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/DisplayMode/ScreenDropdownBox/DropbdownButtonControl/OptionButton" to="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display" method="_on_mode_item_selected"]
+[connection signal="value_changed" from="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionWidthControl/ResolutionWidthFieldInput/InputControl/SpinBox" to="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display" method="_on_width_spin_box_value_changed"]
+[connection signal="value_changed" from="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionHeightControl/ResolutionHeightFieldInput/InputControl/SpinBox" to="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display" method="_on_height_spin_box_value_changed"]
+[connection signal="pressed" from="MenuSections/Body/MainSection/Main/Settings/Elements/MarginContainer/HBoxContainer/LeftContainer/CloseButton" to="." method="_on_close_settings_button_pressed"]
+[connection signal="pressed" from="MenuSections/Body/MainSection/Main/Settings/Elements/MarginContainer/HBoxContainer/RightContainer/ResetSettingsButton" to="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display" method="_on_reset_button_pressed"]
 
-[editable path="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider"]
-[editable path="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider"]
-[editable path="Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/SoundSlider"]
-[editable path="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/DisplayMode/ScreenDropdownBox"]
-[editable path="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionWidthControl/ResolutionWidthFieldInput"]
-[editable path="Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionHeightControl/ResolutionHeightFieldInput"]
+[editable path="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MasterVolumeSlider"]
+[editable path="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/MusicSlider"]
+[editable path="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Audio/Scroll/Components/SoundSlider"]
+[editable path="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/DisplayMode/ScreenDropdownBox"]
+[editable path="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionWidthControl/ResolutionWidthFieldInput"]
+[editable path="MenuSections/Body/MainSection/Main/Settings/Elements/SettingsBody/Tabs/Display/Scroll/Components/ResolutionContainer/ResolutionHeightControl/ResolutionHeightFieldInput"]

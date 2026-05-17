@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://lvh51qt7s35i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5pajh"]
+bg_color = Color(0.6, 0.6, 0.6, 0.39215687)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0, 0, 0.15686275)
+border_blend = true
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[node name="EmptyPanel" type="PanelContainer" unique_id=1420653161]
+offset_right = 500.0
+offset_bottom = 450.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5pajh")
